@@ -67,9 +67,6 @@
                 </div>
             </b-sidebar>
         </div>
-        <div class="router-view">
-            <router-view @openModal="openModal" />
-        </div>
     </div>
 </template>
 
