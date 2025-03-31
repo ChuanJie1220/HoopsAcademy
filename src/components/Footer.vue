@@ -50,6 +50,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    position: fixed;
+    bottom: 0px;
 }
 
 .footer-container {

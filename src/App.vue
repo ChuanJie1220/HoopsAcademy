@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Header v-if="!pathname.includes('login')" />
+    <Header v-if="!$route.path.includes('login')" />
     <!-- <div class="router-view">
       <router-view @openModal="openModal" />
     </div> -->
     <div class="main">
-      <router-view /> 
+      <router-view />
     </div>
     <Footer />
   </div>
@@ -23,28 +23,35 @@ export default {
   },
   data: function () {
     return {
-      pathname: this.$route.path
+      // pathname: this.$route.path
     };
   },
+  computed: {
+    // pathname() {
+    //   return this.$route.path;
+    // }
+  }
 };
 </script>
 
 <style>
-*  {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html,
-body, #app {
+body,
+#app {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .main {
-  flex: 1; /* Makes main content expand, pushing footer down */
+  flex: 1;
+  /* Makes main content expand, pushing footer down */
   /* display: flex; */
   justify-content: center;
   align-items: center;
