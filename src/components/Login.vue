@@ -90,7 +90,7 @@
             />
           </div>
         </div>
-        <a href="/home">Forgot Password</a>
+        <a style="text-align: right;" href="/home">Forgot Password</a>
         <div>
           <b-button class="w-100" @click="login">Login</b-button>
         </div>
