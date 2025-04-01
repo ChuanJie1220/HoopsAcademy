@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="!$route.path.includes('login')" />
+    <Header v-if="!$route.path.includes('login') && !$route.path.includes('register')" />
     <!-- <div class="router-view">
       <router-view @openModal="openModal" />
     </div> -->

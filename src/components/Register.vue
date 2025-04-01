@@ -14,16 +14,46 @@
     <div class="d-flex justify-content-center" style="margin-bottom: 30px">
       <div class="d-flex flex-column" style="width: 375px; gap: 20px; padding: 10px">
         <div class="d-flex flex-row justify-content-between">
-          <p>LOGIN</p>
-          <a href="/register" class="d-flex flex-row align-items-center">
-            <p>Register Account</p>
+          <p>REGISTER ACCOUNT</p>
+          <a href="/login" class="d-flex flex-row align-items-center">
+            <p>Login</p>
             <img src="@/assets/Chevron Right.png" alt="Logo" width="20px" height="20px" />
           </a>
         </div>
         <hr style="border-top: 3px solid #333; opacity: 1; margin: 0px" />
-        <p>Please key in your username and password to login.</p>
+        <p>Please fill up the field below.</p>
         <div class="d-flex flex-column w-100 gap-3">
           <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" />
+          <div>
+            <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
+              type="text"></b-form-input>
+            <b-form-invalid-feedback class="error-message">
+              This field is required
+            </b-form-invalid-feedback>
+          </div>
+        </div>
+        <div class="d-flex flex-column w-100 gap-3">
+          <!-- <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" /> -->
+          <div>
+            <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
+              type="text"></b-form-input>
+            <b-form-invalid-feedback class="error-message">
+              This field is required
+            </b-form-invalid-feedback>
+          </div>
+        </div>
+        <div class="d-flex flex-column w-100 gap-3">
+          <!-- <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" /> -->
+          <div>
+            <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
+              type="text"></b-form-input>
+            <b-form-invalid-feedback class="error-message">
+              This field is required
+            </b-form-invalid-feedback>
+          </div>
+        </div>
+        <div class="d-flex flex-column w-100 gap-3">
+          <!-- <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" /> -->
           <div>
             <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
               type="text"></b-form-input>
@@ -36,7 +66,7 @@
           <img src="@/assets/login-password.png" alt="Logo" width="50px" height="50px" style="align-self: center" />
           <div style="position: relative">
             <b-form-input :state="passwordErr" v-model="password" placeholder="Password" trim
-              :type="show ? 'text' : 'password'"></b-form-input>
+              :type="showPwd ? 'text' : 'password'"></b-form-input>
             <b-form-invalid-feedback class="error-message">
               This field is required
             </b-form-invalid-feedback>
@@ -48,9 +78,23 @@
             }" src="@/assets/password-show.png" alt="Logo" width="20px" height="20px" />
           </div>
         </div>
-        <a style="text-align: right;" href="/home">Forgot Password</a>
+        <div class="d-flex flex-column w-100 gap-3">
+          <div style="position: relative">
+            <b-form-input :state="confirmPasswordErr" v-model="confirmPassword" placeholder="Confirm password" trim
+              :type="showConfirmPwd ? 'text' : 'password'"></b-form-input>
+            <b-form-invalid-feedback class="error-message">
+              Confirm password must same as password
+            </b-form-invalid-feedback>
+            <img @click="showConfirmPassword" :style="{
+              position: 'absolute',
+              top: '9px',
+              right: passwordErr !== null ? '35px' : '10px',
+              cursor: 'pointer',
+            }" src="@/assets/password-show.png" alt="Logo" width="20px" height="20px" />
+          </div>
+        </div>
         <div>
-          <b-button class="w-100" @click="login">Login</b-button>
+          <b-button class="w-100" @click="register">Register</b-button>
         </div>
       </div>
     </div>
@@ -60,24 +104,30 @@
 <script>
 /* eslint-disable */
 export default {
-  name: "login",
+  name: "register",
   components: {},
   computed: {},
   data: function () {
     return {
-      show: false,
+      showPwd: false,
+      showConfirmPwd: false,
       email: "",
       password: "",
+      confirmPassword: "",
       emailErr: null,
       passwordErr: null,
+      confirmPasswordErr: null,
     };
   },
   props: {},
   methods: {
     showPassword() {
-      this.show = !this.show;
+      this.showPwd = !this.showPwd;
     },
-    async login() {
+    showConfirmPassword() {
+      this.showConfirmPwd = !this.showConfirmPwd;
+    },
+    async register() {
       !this.email ? (this.emailErr = false) : (this.emailErr = true);
       !this.password ? (this.passwordErr = false) : (this.passwordErr = true);
       if (this.email && this.password) {
