@@ -323,6 +323,8 @@ export default {
             this.activePrice = null;
             this.activeSortBy = 'default';
 
+            this.sortBy = 'default';
+
             this.selectedFilters = [];
 
             this.currentPage = 1;
