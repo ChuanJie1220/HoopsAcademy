@@ -7,8 +7,14 @@
       </div>
       <div class="d-flex flex-row align-items-end">
         <p>Follow us on</p>
-        <img src="@/assets/ComLogo.png" alt="Logo" width="50px" height="50px" />
-        <img src="@/assets/ComLogo.png" alt="Logo" width="50px" height="50px" />
+        <div class="icons">
+          <a href="https://www.facebook.com" target="_blank" class="icon">
+            <i class="bi bi-facebook me-2 fs-3"></i>
+          </a>
+          <a href="https://www.instagram.com" target="_blank" class="icon">
+            <i class="bi bi-instagram me-2 fs-3"></i>
+          </a>
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-center" style="margin-bottom: 30px">
@@ -25,50 +31,41 @@
         <div class="d-flex flex-column w-100 gap-3">
           <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" />
           <div>
-            <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
+            <b-form-input :state="usernameErr" v-model="username" placeholder="Username" trim
               type="text"></b-form-input>
-            <b-form-invalid-feedback class="error-message">
-              This field is required
+            <b-form-invalid-feedback v-if="errors.username" class="error-message">
+              {{ errors.username[0] }}
             </b-form-invalid-feedback>
           </div>
         </div>
         <div class="d-flex flex-column w-100 gap-3">
-          <!-- <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" /> -->
           <div>
-            <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
-              type="text"></b-form-input>
-            <b-form-invalid-feedback class="error-message">
-              This field is required
+            <b-form-input :state="emailErr" v-model="email" placeholder="Email" trim type="text"></b-form-input>
+            <b-form-invalid-feedback v-if="errors.email" class="error-message">
+              {{ errors.email[0] }}
             </b-form-invalid-feedback>
           </div>
         </div>
         <div class="d-flex flex-column w-100 gap-3">
-          <!-- <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" /> -->
           <div>
-            <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
+            <b-form-input :state="phoneNoErr" v-model="phoneNo" placeholder="Phone Number" trim
               type="text"></b-form-input>
-            <b-form-invalid-feedback class="error-message">
-              This field is required
+            <b-form-invalid-feedback v-if="errors.phoneNo" class="error-message">
+              {{ errors.phoneNo[0] }}
             </b-form-invalid-feedback>
           </div>
         </div>
-        <div class="d-flex flex-column w-100 gap-3">
-          <!-- <img src="@/assets/login-username.png" alt="Logo" width="50px" height="50px" style="align-self: center" /> -->
-          <div>
-            <b-form-input :state="emailErr" v-model="email" placeholder="Username or Email" trim
-              type="text"></b-form-input>
-            <b-form-invalid-feedback class="error-message">
-              This field is required
-            </b-form-invalid-feedback>
-          </div>
+        <div class="col-md-6">
+          <b-form-select v-model="selectedGender" :options="gender" class="">
+            <option value="">Gender (Optional)</option>
+          </b-form-select>
         </div>
         <div class="d-flex flex-column w-100 gap-3">
-          <img src="@/assets/login-password.png" alt="Logo" width="50px" height="50px" style="align-self: center" />
           <div style="position: relative">
             <b-form-input :state="passwordErr" v-model="password" placeholder="Password" trim
               :type="showPwd ? 'text' : 'password'"></b-form-input>
-            <b-form-invalid-feedback class="error-message">
-              This field is required
+            <b-form-invalid-feedback v-if="errors.password" class="error-message">
+              {{ errors.password[0] }}
             </b-form-invalid-feedback>
             <img @click="showPassword" :style="{
               position: 'absolute',
@@ -82,9 +79,11 @@
           <div style="position: relative">
             <b-form-input :state="confirmPasswordErr" v-model="confirmPassword" placeholder="Confirm password" trim
               :type="showConfirmPwd ? 'text' : 'password'"></b-form-input>
-            <b-form-invalid-feedback class="error-message">
-              Confirm password must same as password
+
+            <b-form-invalid-feedback v-if="errors.confirmPassword" class="error-message">
+              {{ errors.confirmPassword[0] }}
             </b-form-invalid-feedback>
+
             <img @click="showConfirmPassword" :style="{
               position: 'absolute',
               top: '9px',
@@ -111,12 +110,23 @@ export default {
     return {
       showPwd: false,
       showConfirmPwd: false,
+      username: "",
       email: "",
+      phoneNo: "",
       password: "",
       confirmPassword: "",
+      usernameErr: null,
       emailErr: null,
+      phoneNoErr: null,
       passwordErr: null,
       confirmPasswordErr: null,
+      selectedGender: "",
+      gender: [
+        { value: 'Male', text: 'Male' },
+        { value: 'Female', text: 'Female' },
+        { value: 'Other', text: 'Prefer Not to Disclose' },
+      ],
+      errors: {}
     };
   },
   props: {},
@@ -127,25 +137,70 @@ export default {
     showConfirmPassword() {
       this.showConfirmPwd = !this.showConfirmPwd;
     },
+    checkInputError() {
+      if (this.username == '' || this.errors.username) {
+        this.usernameErr = false;
+      }
+      else {
+        this.usernameErr = true;
+      }
+      if (this.email == '' || this.errors.email) {
+        this.emailErr = false;
+      }
+      else {
+        this.emailErr = true;
+      }
+      if (this.phoneNo == '' || this.errors.phoneNo) {
+        this.phoneNoErr = false;
+      }
+      else {
+        this.phoneNoErr = true;
+      }
+      if (this.password == '' || this.errors.password) {
+        this.passwordErr = false;
+      }
+      else {
+        this.passwordErr = true;
+      }
+      if (this.confirmPassword == '' || this.errors.confirmPassword) {
+        this.confirmPasswordErr = false;
+      }
+      else {
+        this.confirmPasswordErr = true;
+      }
+      console.log('err', this.errors.password)
+      // if (this.confirmPassword === '') {
+      //   this.confirmPasswordErr = false;
+      // } else if (this.confirmPassword !== this.password) {
+      //   this.confirmPasswordErr = false; // Mark error if passwords don't match
+      // } else {
+      //   this.confirmPasswordErr = true; // Mark valid if they match
+      // }
+    },
     async register() {
-      !this.email ? (this.emailErr = false) : (this.emailErr = true);
-      !this.password ? (this.passwordErr = false) : (this.passwordErr = true);
-      if (this.email && this.password) {
-        try {
-          let dataToPost = {
-            email: this.email,
-            password: this.password,
-          };
-          const res = await this.$axios.post('login', dataToPost)
-          if (res) {
-            this.$showSuccess('success', res.data.message);
-            this.$router.push('/home')
-          }
-        } catch (err) {
-          this.$showSuccess('error', 'Login Failed', err.response.data.error);
+      let dataToPost = {
+        username: this.username,
+        email: this.email,
+        phoneNo: this.phoneNo,
+        gender: this.selectedGender,
+        password: this.password,
+        confirmPassword: this.confirmPassword,
+      };
+
+      try {
+        let result = await this.$axios.post('signup', dataToPost);
+        console.log('Sign Up result', result);
+        this.$showSuccess('success', 'User Registered Successfully').then(() => { this.$router.push('/login') });
+      } catch (error) {
+        console.log('error', error);
+
+        if (error.response && error.response.status === 422) {
+          this.errors = error.response.data.error;
+          this.checkInputError();
+          console.log('Sign Up error', error.response.data.error);
         }
       }
-    },
+    }
   },
   mounted() { },
   watch: {},
@@ -167,5 +222,21 @@ export default {
 
 p {
   margin: 0px;
+}
+
+.icons {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.icon:hover {
+  color: #f0ad4e;
+  transition: color 0.3s ease;
 }
 </style>

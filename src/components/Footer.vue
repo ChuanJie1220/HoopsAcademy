@@ -6,10 +6,10 @@
                 <p>Follow our Social Media</p>
                 <div class="icons">
                     <a href="https://www.facebook.com" target="_blank" class="icon">
-                        <img src="../assets/fb.jpg" alt="Facebook" class="fb-icon" />
+                        <i class="bi bi-facebook me-2 fs-3"></i>
                     </a>
                     <a href="https://www.instagram.com" target="_blank" class="icon">
-                        <img src="../assets/instagram.png" alt="Instagram" class="insta-icon" />
+                        <i class="bi bi-instagram me-2 fs-3"></i>
                     </a>
                 </div>
             </div>
@@ -50,8 +50,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    /* position: fixed;
-    bottom: 0px; */
+    bottom: 0px;
 }
 
 .footer-container {
@@ -91,13 +90,8 @@ export default {
     text-decoration: none;
 }
 
-.fb-icon {
-    width: 65px;
-    height: 50px;
-}
-
-.insta-icon {
-    width: 70px;
-    height: 50px;
+.icon:hover {
+    color: #f0ad4e; 
+    transition: color 0.3s ease;
 }
 </style>
