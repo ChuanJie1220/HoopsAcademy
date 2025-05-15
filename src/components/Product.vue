@@ -135,9 +135,9 @@ export default {
         this.type = this.$route.query.categories;
         this.brand = this.$route.query.brands;
         const userDetails = JSON.parse(localStorage.getItem('user'));
+        this.getProductList();
         const isAdmin = userDetails.is_admin;
         this.isAdmin = isAdmin === 0 ? false : true;
-        this.getProductList();
     },
     watch: {
         type() {

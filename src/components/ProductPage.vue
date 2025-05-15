@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="main-content">
+        <div class="main-content" >
             <b-container fluid>
                 <!-- Product Cards -->
                 <b-row>
@@ -485,12 +485,12 @@ export default {
     },
     mounted() {
         const userDetails = JSON.parse(localStorage.getItem('user'));
+        this.getProductList();
         const isAdmin = userDetails.is_admin;
         this.isAdmin = isAdmin === 0 ? false : true;
         // console.log('type', this.$route.query.type)
         // this.type = this.$route.query.categories;
         // this.brand = this.$route.query.brands;
-        this.getProductList();
     },
     watch: {
         '$route.query'(newQuery) {
